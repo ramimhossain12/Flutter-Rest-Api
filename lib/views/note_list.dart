@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api/models/note_for_listing.dart';
 
+final notes = [
+      new NoteForListing("1", "Note-1", DateTime.now(), DateTime.now()),
+      new NoteForListing("2", "Note-2", DateTime.now(), DateTime.now()),
+      new NoteForListing("3", "Note-3", DateTime.now(), DateTime.now()),
+];
 class NoteList extends StatelessWidget {
-  const NoteList({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +14,9 @@ class NoteList extends StatelessWidget {
           title: Text('Rest Api'),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+
+          },
           child: Icon(Icons.favorite),
         ),
         body: ListView.separated(
@@ -20,12 +26,14 @@ class NoteList extends StatelessWidget {
           ),
           itemBuilder: (_, index) {
             return ListTile(
-              title: Text('Hello',style: TextStyle(color: Theme.of(context).primaryColor),),
-              subtitle: Text("Last Edited on 21/2/2021") ,
+
+              title: Text(
+                notes[index].noteTitle,
+              ),
+              subtitle: Text('Last edited on ${notes[index].latestEditDateTime}') ,
             );
-            
           },
-          itemCount: 30,
+          itemCount: notes.length,
         ));
   }
 }
