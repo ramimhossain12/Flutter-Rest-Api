@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rest_api/models/note_for_listing.dart';
+import 'package:rest_api/services/notes_services.dart';
 
 import 'note_delete.dart';
 import 'note_modify.dart';
 
-final notes = [
-  new NoteForListing("1", "Note-1", DateTime.now(), DateTime.now()),
-  new NoteForListing("2", "Note-2", DateTime.now(), DateTime.now()),
-  new NoteForListing("3", "Note-3", DateTime.now(), DateTime.now()),
-];
 
-class NoteList extends StatelessWidget {
+class NoteList extends StatefulWidget {
+
+
+  @override
+  _NoteListState createState() => _NoteListState();
+}
+
+class _NoteListState extends State<NoteList> {
+  NotesService get service => GetIt.instance<NotesService>();
+
+
+  List<NoteForListing> notes = [];
+
+  @override
+  void initState() {
+    notes = service.getNotesList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
